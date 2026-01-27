@@ -201,6 +201,11 @@ router.get(
         status: "Completed",
       });
 
+      const totalAppointmentCount = await Appointment.countDocuments({
+        doctorId,
+        status: { $ne: "Cancelled" },
+      });
+
       const totalAppointment = await Appointment.find({
         doctorId,
         status: "Completed",
@@ -210,6 +215,58 @@ router.get(
         (sum, apt) => sum + (apt.fees || doctor.fees || 0),
         0
       );
+
+      // Calculate Average Rating from completed appointments with ratings
+      const ratedAppointments = await Appointment.find({
+        doctorId,
+        status: "Completed",
+        rating: { $exists: true, $ne: null },
+      });
+
+      const averageRating =
+        ratedAppointments.length > 0
+          ? (
+              ratedAppointments.reduce((sum, apt) => sum + apt.rating, 0) /
+              ratedAppointments.length
+            ).toFixed(1)
+          : 0;
+
+      // Calculate Completion Rate
+      const completionRate =
+        totalAppointmentCount > 0
+          ? Math.round((completedAppointmentCount / totalAppointmentCount) * 100)
+          : 0;
+
+      // Calculate Average Response Time (from creation to acceptance)
+      const appointmentsWithResponseTime = await Appointment.find({
+        doctorId,
+        acceptedAt: { $exists: true, $ne: null },
+        createdAt: { $exists: true },
+      });
+
+      let averageResponseTimeMs = 0;
+      if (appointmentsWithResponseTime.length > 0) {
+        const totalResponseTime = appointmentsWithResponseTime.reduce(
+          (sum, apt) => {
+            const responseTime =
+              new Date(apt.acceptedAt) - new Date(apt.createdAt);
+            return sum + responseTime;
+          },
+          0
+        );
+        averageResponseTimeMs = totalResponseTime / appointmentsWithResponseTime.length;
+      }
+
+      // Format response time
+      const formatResponseTime = (ms) => {
+        const minutes = Math.round(ms / (1000 * 60));
+        if (minutes < 1) return "< 1 min";
+        if (minutes < 60) return `${minutes} min`;
+        const hours = Math.round(minutes / 60);
+        return `${hours}h`;
+      };
+
+      const responseTime = formatResponseTime(averageResponseTimeMs);
 
       const dashboardData = {
         user: {
@@ -223,15 +280,15 @@ router.get(
           totalPatients,
           todayAppointments: todayAppointments.length,
           totalRevenue,
-          completedAppointments:completedAppointmentCount,
-          averageRating: 4.8,
+          completedAppointments: completedAppointmentCount,
+          averageRating,
         },
         todayAppointments,
         upcomingAppointments,
         performance: {
-          pateintSatisfaction: 4.8,
-          completionRate: 98,
-          responseTime: "< 2min",
+          patientSatisfaction: averageRating,
+          completionRate: `${completionRate}%`,
+          responseTime,
         },
       };
 

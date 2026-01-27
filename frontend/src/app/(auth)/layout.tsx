@@ -37,7 +37,7 @@ const layout = ({children}:{children:React.ReactNode}) => {
               </svg>
 
               </div>
-              <h2 className='text-4xl font-bold mb-4'>Welcome to MediCare+</h2>
+              <h2 className='text-4xl font-bold mb-4'>Welcome to SmartConsult+</h2>
               <p className='text-xl opacity-90 mb-4'>Your health, our priority</p>
              <p className='text-lg opacity-75'>
                 Connecting patients with certified healthcare providers for quality medical consultations.

@@ -27,7 +27,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { getStatusColor } from "@/lib/constant";
 
-const DoctorDashboardContent = () => {
+const DoctorDashboardContent: React.FC = () => {
   const searchParams = useSearchParams();
   const { user } = userAuthStore();
   const {
@@ -163,7 +163,7 @@ const DoctorDashboardContent = () => {
     },
     {
       title: "Total Revenue",
-      value: `₹${dashboardData?.stats?.totalRevenue?.toLocaleString() || "0"}`,
+      value: `${dashboardData?.stats?.totalRevenue?.toLocaleString() || "0"}`,
       icon: DollarSign,
       color: "text-purple-600",
       bgColor: "bg-purple-50",
@@ -330,7 +330,7 @@ const DoctorDashboardContent = () => {
                                 <Phone className="w-4 h-4 text-green-600" />
                               )}
                               <span className="text-sm text-gray-500">
-                                ₹{appointment.doctorId?.fees}
+                                ${appointment.doctorId?.fees}
                               </span>
                             </div>
                           </div>
@@ -408,7 +408,7 @@ const DoctorDashboardContent = () => {
                                 <Phone className="w-4 h-4 text-green-600" />
                               )}
                               <span className="text-sm text-gray-500">
-                                ₹{appointment.doctorId?.fees}
+                                ${appointment.doctorId?.fees}
                               </span>
                             </div>
                           </div>

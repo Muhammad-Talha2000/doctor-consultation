@@ -59,7 +59,7 @@ const doctorSchema = new mongoose.Schema({
     dailyTimeRanges: {type:[dailyTimeRangeSchema], default:[]},
     slotDurationMinutes: {type:Number, default:30},
 
-    isVerified: {type:Boolean, default:false},
+    isVerified: {type:Boolean, default:true},
         isActive: {type:Boolean, default:true},
 
 })

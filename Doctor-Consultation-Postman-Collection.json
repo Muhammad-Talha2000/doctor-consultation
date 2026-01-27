@@ -1,0 +1,603 @@
+{
+  "info": {
+    "_postman_id": "doctor-consultation-collection",
+    "name": "Doctor Consultation API",
+    "description": "Complete API collection for Doctor Consultation platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Doctor Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dr. John Doe\",\n  \"email\": \"doctor@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/doctor/register",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "doctor", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Doctor Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"doctor@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/doctor/login",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "doctor", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patient Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Patient\",\n  \"email\": \"patient@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/patient/register",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "patient", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patient Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"patient@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/auth/patient/login",
+              "host": ["{{BASE_URL}}"],
+              "path": ["auth", "patient", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Doctor",
+      "item": [
+        {
+          "name": "Get Doctors List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/doctor/list?search=&specialization=&city=&minFees=&maxFees=&sortBy=createdAt&sortOrder=desc&page=1&limit=20",
+              "host": ["{{BASE_URL}}"],
+              "path": ["doctor", "list"],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "specialization",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "city",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "minFees",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "maxFees",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "sortBy",
+                  "value": "createdAt",
+                  "disabled": true
+                },
+                {
+                  "key": "sortOrder",
+                  "value": "desc",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Doctor Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{DOCTOR_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/doctor/me",
+              "host": ["{{BASE_URL}}"],
+              "path": ["doctor", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Doctor Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{DOCTOR_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dr. John Doe\",\n  \"specialization\": \"Cardiology\",\n  \"qualification\": \"MBBS, MD\",\n  \"category\": \"General\",\n  \"experience\": 10,\n  \"about\": \"Experienced cardiologist with 10 years of practice\",\n  \"fees\": 500,\n  \"hospitalInfo\": {\n    \"name\": \"City Hospital\",\n    \"city\": \"New York\",\n    \"address\": \"123 Medical Lane\"\n  },\n  \"availabilityRange\": {\n    \"startDate\": \"2026-01-22T00:00:00.000Z\",\n    \"endDate\": \"2026-12-31T23:59:59.999Z\",\n    \"excludedWeekdays\": []\n  },\n  \"dailyTimeRanges\": [\n    {\n      \"start\": \"09:00\",\n      \"end\": \"17:00\"\n    }\n  ],\n  \"slotDurationMinutes\": 30\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/doctor/onboarding/update",
+              "host": ["{{BASE_URL}}"],
+              "path": ["doctor", "onboarding", "update"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Doctor Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{DOCTOR_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/doctor/dashboard",
+              "host": ["{{BASE_URL}}"],
+              "path": ["doctor", "dashboard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Doctor Appointments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{DOCTOR_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/doctor?status=Scheduled&status=In Progress",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "doctor"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Scheduled"
+                },
+                {
+                  "key": "status",
+                  "value": "In Progress"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Patient",
+      "item": [
+        {
+          "name": "Get Patient Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/patient/me",
+              "host": ["{{BASE_URL}}"],
+              "path": ["patient", "me"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Patient Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Patient\",\n  \"phone\": \"+1234567890\",\n  \"dob\": \"1990-01-15T00:00:00.000Z\",\n  \"gender\": \"male\",\n  \"bloodGroup\": \"O+\",\n  \"emergencyContact\": {\n    \"name\": \"Jane Doe\",\n    \"phone\": \"+1234567891\",\n    \"relationship\": \"Sister\"\n  },\n  \"medicalHistory\": {\n    \"allergies\": \"Penicillin\",\n    \"currentMedications\": \"Aspirin\",\n    \"chronicConditions\": \"Hypertension\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/patient/onboarding/update",
+              "host": ["{{BASE_URL}}"],
+              "path": ["patient", "onboarding", "update"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Patient Appointments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/patient?status=Scheduled&status=In Progress",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "patient"],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "Scheduled"
+                },
+                {
+                  "key": "status",
+                  "value": "In Progress"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Appointment",
+      "item": [
+        {
+          "name": "Get Booked Slots",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/booked-slots/{{DOCTOR_ID}}/2026-01-25",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "booked-slots", "{{DOCTOR_ID}}", "2026-01-25"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Book Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"doctorId\": \"{{DOCTOR_ID}}\",\n  \"slotStartIso\": \"2026-01-25T10:00:00.000Z\",\n  \"slotEndIso\": \"2026-01-25T10:30:00.000Z\",\n  \"date\": \"2026-01-25\",\n  \"consultationType\": \"Video Consultation\",\n  \"symptoms\": \"I have been experiencing severe headaches and dizziness for the past week\",\n  \"consultationFees\": 500,\n  \"platformFees\": 50,\n  \"totalAmount\": 550\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/book",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "book"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Appointment",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/{{APPOINTMENT_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "{{APPOINTMENT_ID}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Join Consultation",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/join/{{APPOINTMENT_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "join", "{{APPOINTMENT_ID}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "End Consultation",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{DOCTOR_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prescription\": \"Take aspirin 500mg twice daily for 5 days\",\n  \"notes\": \"Patient responded well to treatment\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/end/{{APPOINTMENT_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "end", "{{APPOINTMENT_ID}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Appointment Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{DOCTOR_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Completed\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/status/{{APPOINTMENT_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "status", "{{APPOINTMENT_ID}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rate Appointment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 5\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/appointment/{{APPOINTMENT_ID}}/rate",
+              "host": ["{{BASE_URL}}"],
+              "path": ["appointment", "{{APPOINTMENT_ID}}", "rate"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Create Razorpay Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appointmentId\": \"{{APPOINTMENT_ID}}\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/payment/create-order",
+              "host": ["{{BASE_URL}}"],
+              "path": ["payment", "create-order"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verify Razorpay Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{PATIENT_TOKEN}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appointmentId\": \"{{APPOINTMENT_ID}}\",\n  \"razorpay_order_id\": \"order_xxxxxxxxxxxxxxxx\",\n  \"razorpay_payment_id\": \"pay_xxxxxxxxxxxxxxxx\",\n  \"razorpay_signature\": \"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/payment/verify-payment",
+              "host": ["{{BASE_URL}}"],
+              "path": ["payment", "verify-payment"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Stripe Checkout Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"selectedDate\": \"2026-01-25\",\n  \"consultationType\": \"Video Consultation\",\n  \"doctor\": \"Dr. John Doe\",\n  \"duration\": \"30 mins\",\n  \"consultationFee\": 500,\n  \"platformFee\": 50,\n  \"doctorId\": \"{{DOCTOR_ID}}\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/payment/create-checkout-session",
+              "host": ["{{BASE_URL}}"],
+              "path": ["payment", "create-checkout-session"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:5000/api"
+    },
+    {
+      "key": "FRONTEND_URL",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "DOCTOR_TOKEN",
+      "value": ""
+    },
+    {
+      "key": "PATIENT_TOKEN",
+      "value": ""
+    },
+    {
+      "key": "DOCTOR_ID",
+      "value": ""
+    },
+    {
+      "key": "PATIENT_ID",
+      "value": ""
+    },
+    {
+      "key": "APPOINTMENT_ID",
+      "value": ""
+    }
+  ]
+}

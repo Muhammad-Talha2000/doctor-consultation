@@ -50,13 +50,23 @@ payoutStatus: {
     payoutDate:{type:Date},
     paymentMethod: {type:String,default:'Online'},
 
-
     //razorPay payment field
     razorpayOrderId: {type:String},
     razorpayPaymentId: {type:String},
     razorpaySignature: {type:String},
-    paymentDate:{type:Date}
+    paymentDate:{type:Date},
 
+    //Rating and response tracking
+    rating: {
+      type: Number,
+      min: 1,
+      max: 5,
+      default: null
+    },
+    acceptedAt: {
+      type: Date,
+      default: null
+    }
 
 },{timestamps:true});
 

@@ -311,4 +311,53 @@ router.get("/:id", authenticate, async (req, res) => {
   }
 });
 
+//Rate appointment by patient
+router.put(
+  "/:id/rate",
+  authenticate,
+  requireRole("patient"),
+  [
+    body("rating")
+      .isInt({ min: 1, max: 5 })
+      .withMessage("Rating must be between 1 and 5"),
+  ],
+  validate,
+  async (req, res) => {
+    try {
+      const { rating } = req.body;
+      const appointmentId = req.params.id;
+
+      const appointment = await Appointment.findById(appointmentId);
+
+      if (!appointment) {
+        return res.notFound("Appointment not found");
+      }
+
+      if (appointment.patientId.toString() !== req.auth.id) {
+        return res.forbidden("Access denied");
+      }
+
+      if (appointment.status !== "Completed") {
+        return res.badRequest(
+          "You can only rate completed appointments"
+        );
+      }
+
+      appointment.rating = rating;
+      await appointment.save();
+
+      await appointment.populate(
+        "doctorId",
+        "name fees phone specialization profileImage"
+      );
+      await appointment.populate("patientId", "name email phone");
+
+      res.ok(appointment, "Appointment rated successfully");
+    } catch (error) {
+      console.error("Rate appointment error", error);
+      res.serverError("Failed to rate appointment", [error.message]);
+    }
+  }
+);
+
 module.exports = router;

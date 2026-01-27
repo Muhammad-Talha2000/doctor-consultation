@@ -16,7 +16,7 @@ const Footer = () => {
                   <Stethoscope className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-3xl font-bold bg-gradient-to-br from-white to-blue-100  bg-clip-text text-transparent">
-                  MediCare+
+                  SmartConsult+
                 </div>
               </div>
 
@@ -95,7 +95,7 @@ const Footer = () => {
         <div className="py-6 border-t border-blue-700/50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-blue-200 text-sm">
-              <p>&copy; 2025 MediCare+, Inc. All rights resetved</p>
+              <p>&copy; 2025 SmartConsult+, Inc. All rights resetved</p>
             </div>
 
             <div className="flex items-center space-x-4">

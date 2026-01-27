@@ -98,7 +98,7 @@ const DoctorProfile = ({ doctor }: DoctorPrfileInterface) => {
                 Consultation Fee
               </p>
               <p className="text-2xl text-green-800 font-bold">
-                ₹{doctor.fees}
+                ${doctor.fees}
               </p>
               <p className="text-xs text-green-600 ">
                 {doctor.slotDurationMinutes} minutes session

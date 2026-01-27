@@ -174,19 +174,19 @@ const PayementStep = ({
 
             <div className="flex justify-between">
               <span className="text-gray-600">Consultation Fee</span>
-              <span className="font-medium">₹{consultationFee}</span>
+              <span className="font-medium">${consultationFee}</span>
             </div>
 
             <div className="flex justify-between">
               <span className="text-gray-600">Platform Fee</span>
-              <span className="font-medium">₹{platformFees}</span>
+              <span className="font-medium">${platformFees}</span>
             </div>
 
             <Separator />
 
             <div className="flex justify-between text-lg">
               <span className="font-semibold">Total Amount</span>
-              <span className="font-bold text-green-600">₹{totalAmount}</span>
+              <span className="font-bold text-green-600">${totalAmount}</span>
             </div>
           </div>
         </div>
@@ -298,7 +298,7 @@ const PayementStep = ({
               <>
                 <CreditCard className="w-5 h-5 mr-2 " />
                 <span className="text-sm md:text-lg">
-                  Pay ₹{totalAmount} & Book
+                  Pay ${totalAmount} & Book
                 </span>
               </>
             )}

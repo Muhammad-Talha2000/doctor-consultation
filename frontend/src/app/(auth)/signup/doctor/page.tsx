@@ -1,8 +1,8 @@
 import AuthForm from "@/components/auth/AuthForm";
 
 export const metadata = {
-  title: 'Join MediCare+ as Healthcare Provider',
-  description: 'Register as a healthcare provider on MediCare+ to offer online consultations.',
+  title: 'Join SmartConsult+ as Healthcare Provider',
+  description: 'Register as a healthcare provider on SmartConsult+ to offer online consultations.',
 };
 
 

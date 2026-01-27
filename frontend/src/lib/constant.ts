@@ -120,15 +120,15 @@ export const specializations = [
 
     export const faqs = [
     {
-      question: "How much does a doctor visit with MediCare+ cost?",
-      answer: "With insurance, you pay your copay based on your plan. We accept most plans, including Medicare. Without insurance, online doctor visits are $129. You can become a MediCare+ member and pay $44/visit. Membership is $55 for three months and $180 for a yearly membership."
+      question: "How much does a doctor visit with SmartConsult+ cost?",
+      answer: "With insurance, you pay your copay based on your plan. We accept most plans, including Medicare. Without insurance, online doctor visits are $129. You can become a SmartConsult+ member and pay $44/visit. Membership is $55 for three months and $180 for a yearly membership."
     },
     {
       question: "Do you accept health insurance?",
       answer: "Yes, we accept most major health insurance plans including Medicare, BlueCross BlueShield, Aetna, United Healthcare, Cigna, Humana, and many others. We also accept FSA and HSA payments."
     },
     {
-      question: "What conditions can MediCare+ doctors treat?",
+      question: "What conditions can SmartConsult+ doctors treat?",
       answer: "Our doctors can treat a wide range of conditions including cold and flu symptoms, allergies, skin conditions, mental health concerns, chronic condition management, and much more through virtual consultations."
     },
     {
@@ -154,7 +154,7 @@ export const specializations = [
   },
   {
     icon: MapPin,
-    text: "Available across India",
+    text: "Available across Pakistan",
   },
 ];
 
@@ -200,7 +200,7 @@ export const specializations = [
 ]
 
 
-export  const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Kolkata', 'Hyderabad', 'Pune', 'Ahmedabad'];
+export  const cities = ['Karachi', 'Sialkot', 'Islamabad', 'Sukkur', 'Lahore', 'Hyderabad', 'Quetta', 'Faislabad'];
 
 
 

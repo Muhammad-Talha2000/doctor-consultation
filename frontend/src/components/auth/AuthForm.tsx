@@ -91,7 +91,7 @@ interface AuthFormProps {
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-blue-900">MediCare+</h1>
+        <h1 className="text-2xl font-bold text-blue-900">SmartConsult+</h1>
       </div>
 
       <Card className="border-0 shadow-xl">
@@ -170,7 +170,7 @@ interface AuthFormProps {
                   onCheckedChange={(checked) => setAgreeToTerms(checked as boolean)}
                 />
                 <label htmlFor="terms" className="text-sm text-gray-600 leading-5">
-                  I confirm that I am over 18 years old and agree to MediCare+'s{' '}
+                  I confirm that I am over 18 years old and agree to SmartConsult+'s{' '}
                   <Link href="#" className="text-blue-600 hover:underline">Terms</Link> and{' '}
                   <Link href="#" className="text-blue-600 hover:underline">Privacy Policy</Link>.
                 </label>

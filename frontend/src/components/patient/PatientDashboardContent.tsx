@@ -79,8 +79,7 @@ const PatientDashboardContent = () => {
     const diffMintues = (appointmentTime.getTime() - now.getTime()) / (1000 * 60);
 
     return (
-      isToday(appointment.slotStartIso) &&
-      diffMintues <= 15 && //not earliar than 15 min before start
+      diffMintues <= 30 && //not earliar than 15 min before start
       diffMintues >= -120 && //not later than 2 hours after start
       (appointment.status === "Scheduled" ||
         appointment.status === "In Progress")
@@ -154,7 +153,7 @@ const PatientDashboardContent = () => {
               <div className="text-center md:text-left">
                 <div className="flex justify-center gap-2 text-sm text-gray-600">
                   <span className="font-semibold">Fee:</span>
-                  <p>₹{appointment.doctorId?.fees}</p>
+                  <p>${appointment.doctorId?.fees}</p>
                 </div>
 
                 {appointment.symptoms && (

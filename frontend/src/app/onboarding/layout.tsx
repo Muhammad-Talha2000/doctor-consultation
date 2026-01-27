@@ -18,7 +18,7 @@ const layout = ({children}:{children:React.ReactNode}) => {
         <header className='bg-white border-b px-6 py-4'>
             <div className='max-w-4xl mx-auto'>
                 <div className='text-2xl font-bold text-blue-900'>
-                MediCare+
+                SmartConsult+
                 </div>
             </div>
         </header>
