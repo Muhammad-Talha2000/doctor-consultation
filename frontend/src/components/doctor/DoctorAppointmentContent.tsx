@@ -28,33 +28,14 @@ const DoctorAppointmentContent = () => {
     }
   }, [user, activeTab, fetchAppointments]);
 
-  //update tab counts whever appointmnet chnage
+  // Keep count source consistent with what each tab renders.
+  // Each tab renders `appointments` returned by backend for that tab filter.
   useEffect(() => {
-    const now = new Date();
-    //filter the upcoming appointmnet
-    const upcomingAppointments = appointments.filter((apt) => {
-      const aptDate = new Date(apt.slotStartIso);
-      return (
-        (aptDate >= now || apt.status === "In Progress") &&
-        (apt.status === "Scheduled" || apt.status === "In Progress")
-      );
-    });
-
-    //filter the past appointmnet
-    const pastAppointments = appointments.filter((apt) => {
-      const aptDate = new Date(apt.slotStartIso);
-      return (
-        aptDate < now ||
-        apt.status === "Completed" ||
-        apt.status === "Cancelled"
-      );
-    });
-
-    setTabCounts({
-      upcoming: upcomingAppointments.length,
-      past: pastAppointments.length,
-    });
-  }, [appointments]);
+    setTabCounts((prev) => ({
+      ...prev,
+      [activeTab]: appointments.length,
+    }));
+  }, [appointments, activeTab]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -376,7 +357,7 @@ const DoctorAppointmentContent = () => {
                   ))}
                 </div>
               ) : (
-                <EmptyState tab="completed" />
+                <EmptyState tab="past" />
               )}
             </TabsContent>
           </Tabs>

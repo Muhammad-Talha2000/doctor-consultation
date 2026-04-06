@@ -11,7 +11,7 @@ import {
   User,
   X,
 } from "lucide-react";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import Header from "../landing/Header";
@@ -19,7 +19,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { el } from "date-fns/locale";
 import {
   Select,
   SelectContent,
@@ -33,11 +32,14 @@ import { Checkbox } from "../ui/checkbox";
 
 interface ProfileProps {
   userType: "doctor" | "patient";
+  mode?: "profile" | "settings";
 }
-const ProfilePage = ({ userType }: ProfileProps) => {
+const ProfilePage = ({ userType, mode = "profile" }: ProfileProps) => {
   const { user, fetchProfile, updateProfile, loading } = userAuthStore();
   const [activeSection, setActiveSection] = useState("about");
   const [isEditing, setIsEditing] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState<any>({
     name: "",
@@ -207,10 +209,14 @@ const ProfilePage = ({ userType }: ProfileProps) => {
 
   const handleSave = async () => {
     try {
+      setSaveError(null);
+      setSaveMessage(null);
       await updateProfile(formData);
       setIsEditing(false);
+      setSaveMessage("Settings saved successfully.");
     } catch (error) {
       console.error(error);
+      setSaveError("Failed to save settings. Please try again.");
     }
   };
 
@@ -262,12 +268,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
                   : ""
               }
               onChange={(e) =>
-                handleInputChnage(
-                  "dob",
-                  e.target.value
-                    ? new Date(formData.dob).toISOString().split("T")[0]
-                    : ""
-                )
+                handleInputChnage("dob", e.target.value ? new Date(e.target.value).toISOString() : "")
               }
               disabled={!isEditing}
               className="w-80"
@@ -372,6 +373,8 @@ const ProfilePage = ({ userType }: ProfileProps) => {
               {isEditing && (
                 <button
                   type="button"
+                  aria-label="Remove category"
+                  title="Remove category"
                   className="ml-1 p-0 border-0 bg-transparent cursor-pointer hover:bg-gray-200 rounded-full"
                   onClick={(e) => {
                     e.preventDefault();
@@ -464,7 +467,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
         <Input
           value={formData.hospitalInfo?.name || ""}
           onChange={(e) =>
-            handleInputChnage("hospitalInfo?.name", e.target.value)
+            handleInputChnage("hospitalInfo.name", e.target.value)
           }
           disabled={!isEditing}
         />
@@ -475,7 +478,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
         <Textarea
           value={formData.hospitalInfo?.address || ""}
           onChange={(e) =>
-            handleInputChnage("hospitalInfo?.address", e.target.value)
+            handleInputChnage("hospitalInfo.address", e.target.value)
           }
           disabled={!isEditing}
           rows={3}
@@ -487,7 +490,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
         <Input
           value={formData.hospitalInfo?.city || ""}
           onChange={(e) =>
-            handleInputChnage("hospitalInfo?.city", e.target.value)
+            handleInputChnage("hospitalInfo.city", e.target.value)
           }
           disabled={!isEditing}
         />
@@ -504,7 +507,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
             type="date"
             value={formatDateForInput(formData.availabilityRange?.startDate)}
             onChange={(e) =>
-              handleInputChnage("availabilityRange?.startDate", e.target.value)
+              handleInputChnage("availabilityRange.startDate", e.target.value)
             }
             disabled={!isEditing}
           />
@@ -516,7 +519,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
             type="date"
             value={formatDateForInput(formData.availabilityRange?.endDate)}
             onChange={(e) =>
-              handleInputChnage("availabilityRange?.endDate", e.target.value)
+              handleInputChnage("availabilityRange.endDate", e.target.value)
             }
             disabled={!isEditing}
           />
@@ -701,7 +704,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
         <Input
           value={formData.emergencyContact?.name || ""}
           onChange={(e) =>
-            handleInputChnage("emergencyContact?.name", e.target.value)
+            handleInputChnage("emergencyContact.name", e.target.value)
           }
           disabled={!isEditing}
         />
@@ -712,7 +715,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
         <Input
           value={formData.emergencyContact?.phone || ""}
           onChange={(e) =>
-            handleInputChnage("emergencyContact?.phone", e.target.value)
+            handleInputChnage("emergencyContact.phone", e.target.value)
           }
           disabled={!isEditing}
         />
@@ -723,7 +726,7 @@ const ProfilePage = ({ userType }: ProfileProps) => {
         <Input
           value={formData.emergencyContact?.relationship || ""}
           onChange={(e) =>
-            handleInputChnage("emergencyContact?.relationship", e.target.value)
+            handleInputChnage("emergencyContact.relationship", e.target.value)
           }
           disabled={!isEditing}
         />
@@ -758,7 +761,14 @@ const ProfilePage = ({ userType }: ProfileProps) => {
       <div className="min-h-screen bg-gray-50 pt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Records</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              {mode === "settings" ? "Settings" : "Records"}
+            </h1>
+            {mode === "settings" && (
+              <p className="text-sm text-gray-600 mt-2">
+                Manage your account, personal information, and consultation preferences.
+              </p>
+            )}
           </div>
 
           <div className="flex items-center space-x-8 mb-8">
@@ -820,6 +830,16 @@ const ProfilePage = ({ userType }: ProfileProps) => {
                       )}
                     </div>
                   </div>
+                  {saveMessage && (
+                    <div className="mb-4 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
+                      {saveMessage}
+                    </div>
+                  )}
+                  {saveError && (
+                    <div className="mb-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+                      {saveError}
+                    </div>
+                  )}
                   {renderContent()}
                 </CardContent>
               </Card>
