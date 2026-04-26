@@ -6,18 +6,21 @@ import { Card, CardContent } from "../ui/card";
 const FAQSection = () => {
   const [openFAQ, setOpenFAQ] = useState<number | null>(0);
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-secondary/30">
+    <section className="bg-slate-50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-primary mb-12">
-            Trusted by millions since 2010
+          <h2 className="text-3xl font-bold text-blue-950 mb-4 md:text-4xl">
+            Why patients choose CareBridge Health
           </h2>
+          <p className="mx-auto mb-10 max-w-3xl text-gray-600">
+            Built for reliability, privacy, and convenience, CareBridge Health helps you access quality care with less waiting and better continuity.
+          </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 items-stretch">
             {trustLogos.map((logo, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center h-16 text-muted-foreground font-medium text-sm opacity-60 hover:opacity-80 transition-opacity duration-200"
+                className="flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-4 text-center text-sm font-medium text-slate-600"
               >
                 {logo}
               </div>
@@ -28,7 +31,7 @@ const FAQSection = () => {
         {/* FAQ section */}
 
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold text-primary text-center mb-12">
+          <h2 className="text-3xl font-bold text-blue-950 text-center mb-12">
             Frequently asked questions
           </h2>
 

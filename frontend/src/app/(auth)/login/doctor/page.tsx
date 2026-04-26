@@ -1,8 +1,8 @@
 import AuthForm from "@/components/auth/AuthForm";
 
 export const metadata = {
-  title: 'Doctor Login - SmartConsult+',
-  description: 'Healthcare provider sign in to SmartConsult+ platform. Manage your practice and consultations.',
+  title: 'Doctor Login - CareBridge Health',
+  description: 'Healthcare provider sign in to CareBridge Health platform. Manage your practice and consultations.',
 };
 
 

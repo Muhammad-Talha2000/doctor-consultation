@@ -1,16 +1,17 @@
 'use client'
 import { userAuthStore } from '@/store/authStore'
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 
 const layout = ({children}:{children:React.ReactNode}) => {
+    const router = useRouter();
     const {isAuthenticated} = userAuthStore();
 
     useEffect(() => {
         if(!isAuthenticated){
-            redirect('/login/patient')
+            router.replace('/login/patient')
         }
-    },[isAuthenticated])
+    },[isAuthenticated, router])
 
     if(!isAuthenticated) return null;
   return (
@@ -18,7 +19,7 @@ const layout = ({children}:{children:React.ReactNode}) => {
         <header className='bg-white border-b px-6 py-4'>
             <div className='max-w-4xl mx-auto'>
                 <div className='text-2xl font-bold text-blue-900'>
-                SmartConsult+
+                CareBridge Health
                 </div>
             </div>
         </header>

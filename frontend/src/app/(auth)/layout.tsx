@@ -1,24 +1,25 @@
 'use client'
 import { userAuthStore } from '@/store/authStore';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react'
 
 const layout = ({children}:{children:React.ReactNode}) => {
+ const router = useRouter();
 
  const {isAuthenticated,user} = userAuthStore();
   useEffect(() => {
     if(isAuthenticated &&  user) {
       if(!user.isVerified){
-        redirect(`/onboarding/${user.type}`)
+        router.replace(`/onboarding/${user.type}`)
       }else{
         if(user.type === 'doctor'){
-          redirect('/doctor/dashboard')
+          router.replace('/doctor/dashboard')
         }else{
-          redirect('/patient/dashboard')
+          router.replace('/patient/dashboard')
         }
       }
     }
-  },[isAuthenticated,user])
+  },[isAuthenticated,user,router])
   return (
     <div className='min-h-screen flex'>
      
@@ -37,7 +38,7 @@ const layout = ({children}:{children:React.ReactNode}) => {
               </svg>
 
               </div>
-              <h2 className='text-4xl font-bold mb-4'>Welcome to SmartConsult+</h2>
+              <h2 className='text-4xl font-bold mb-4'>Welcome to CareBridge Health</h2>
               <p className='text-xl opacity-90 mb-4'>Your health, our priority</p>
              <p className='text-lg opacity-75'>
                 Connecting patients with certified healthcare providers for quality medical consultations.

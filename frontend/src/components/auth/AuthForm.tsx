@@ -61,14 +61,17 @@ interface AuthFormProps {
             password: formData.password,
           });
         }
-        router.push(`/onboarding/${userRole}`);
+        router.replace(`/onboarding/${userRole}`);
+        router.refresh();
       } else {
         if (userRole === 'doctor') {
           await loginDoctor(formData.email, formData.password);
-          router.push('/doctor/dashboard');
+          router.replace('/doctor/dashboard');
+          router.refresh();
         } else {
           await loginPatient(formData.email, formData.password);
-          router.push('/patient/dashboard');
+          router.replace('/patient/dashboard');
+          router.refresh();
         }
       }
     } catch (err) {
@@ -91,7 +94,7 @@ interface AuthFormProps {
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-2xl font-bold text-blue-900">SmartConsult+</h1>
+        <h1 className="text-2xl font-bold text-blue-900">CareBridge Health</h1>
       </div>
 
       <Card className="border-0 shadow-xl">
@@ -170,7 +173,7 @@ interface AuthFormProps {
                   onCheckedChange={(checked) => setAgreeToTerms(checked as boolean)}
                 />
                 <label htmlFor="terms" className="text-sm text-gray-600 leading-5">
-                  I confirm that I am over 18 years old and agree to SmartConsult+'s{' '}
+                  I confirm that I am over 18 years old and agree to CareBridge Health&apos;s{' '}
                   <Link href="#" className="text-blue-600 hover:underline">Terms</Link> and{' '}
                   <Link href="#" className="text-blue-600 hover:underline">Privacy Policy</Link>.
                 </label>

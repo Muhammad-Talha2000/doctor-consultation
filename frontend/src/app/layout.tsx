@@ -14,10 +14,62 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
- title: 'SmartConsult+ - Online Doctor Consultations',
-  description: 'Connect with certified doctors online for quality healthcare. Professional medical consultations from the comfort of your home.',
-  keywords: ['telemedicine', 'online doctor', 'healthcare', 'consultation', 'medical advice', 'teleconsultation'],
-  authors: [{ name: 'SmartConsult+' }],
+  metadataBase: new URL("https://carebridgehealth.com"),
+  title: {
+    default: "CareBridge Health | Online Doctor Consultation Platform",
+    template: "%s | CareBridge Health",
+  },
+  description:
+    "Book secure online doctor consultations with certified specialists. Get video visits, digital prescriptions, and follow-up care from home.",
+  keywords: [
+    "online doctor consultation",
+    "telemedicine",
+    "video doctor appointment",
+    "digital prescription",
+    "virtual healthcare",
+    "patient portal",
+    "doctor appointment online",
+  ],
+  authors: [{ name: "CareBridge Health" }],
+  creator: "CareBridge Health",
+  publisher: "CareBridge Health",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://carebridgehealth.com",
+    siteName: "CareBridge Health",
+    title: "CareBridge Health | Online Doctor Consultation Platform",
+    description:
+      "Connect with verified doctors online for video consultations, care plans, and trusted follow-ups.",
+    images: [
+      {
+        url: "/vercel.svg",
+        width: 1200,
+        height: 630,
+        alt: "CareBridge Health online healthcare platform",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CareBridge Health | Online Doctor Consultation Platform",
+    description:
+      "Book secure online consultations with certified doctors and receive quality care from home.",
+    images: ["/vercel.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
 };
 
 

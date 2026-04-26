@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ showDashboardNav = false }) => {
             </div>
 
             <div className="text-2xl font-bold bg-gradient-to-br from-blue-600 to-blue-800  bg-clip-text text-transparent">
-              SmartConsult+
+              CareBridge Health
             </div>
           </Link>
 

@@ -5,14 +5,17 @@ import { Card, CardContent } from "../ui/card";
 
 const TestimonialsSection = () => {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-background">
+    <section className="bg-white px-4 py-16 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-primary mb-4">
-            Our patient love us
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <h2 className="mb-3 text-3xl font-bold text-blue-950 md:text-4xl">
+            Loved by patients and trusted by doctors
           </h2>
+          <p className="text-gray-600">
+            Real experiences from people using CareBridge Health for secure, convenient, and high-quality online healthcare.
+          </p>
 
-          <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="mt-5 flex items-center justify-center gap-2">
             <span className="text-2xl font-bold text-foreground">4.8</span>
             <div className="flex text-yellow-400">
               {[...Array(5)].map((_, i) => (
@@ -25,16 +28,15 @@ const TestimonialsSection = () => {
                 </svg>
               ))}
             </div>
-            <span className="text-muted-foreground">72K+ reviews</span>
+            <span className="text-muted-foreground">Average platform rating</span>
           </div>
         </div>
 
-        {/* Testimonila grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {testimonials.map((testimonial, index) => (
             <Card
               key={index}
-              className={`${testimonial.bgColor} border border-border hover:shadow-lg transition-shadow duration-200`}
+              className={`${testimonial.bgColor} border border-border shadow-sm hover:shadow-lg transition-shadow duration-200`}
             >
               <CardContent className="p-6">
                 <div className="flex text-yellow-400">
@@ -48,7 +50,7 @@ const TestimonialsSection = () => {
                     </svg>
                   ))}
                 </div>
-                <p className="text-sm text-foreground mb-6 leading-relaxed">
+                <p className="mt-3 text-sm text-foreground mb-6 leading-relaxed">
                   {testimonial.text}
                 </p>
                 <div className="text-sm">
@@ -64,11 +66,6 @@ const TestimonialsSection = () => {
           ))}
         </div>
 
-        <div className="text-center mt-8">
-       <button className="text-chart-2 hover:text-chart-2/80 font-medium transition-colors duration-200">
-        Read more
-       </button>
-        </div>
       </div>
     </section>
   );

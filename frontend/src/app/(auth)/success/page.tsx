@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { userAuthStore } from '@/store/authStore';
 import  Loader  from '@/components/Loader';
 
-export default function SuccessPage() {
+function SuccessPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const { setUser } = userAuthStore();
@@ -80,5 +80,13 @@ export default function SuccessPage() {
         <p className="text-gray-600 mt-4">Setting up your account...</p>
       </div>
     </div>
+  );
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<Loader />}>
+      <SuccessPageContent />
+    </Suspense>
   );
 }

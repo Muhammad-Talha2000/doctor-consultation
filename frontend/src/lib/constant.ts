@@ -89,30 +89,30 @@ export const specializations = [
    export const testimonials = [
     {
       rating: 5,
-      text: "Doctor was available right away, listened to my symptoms and prescribed the right medication. He made sure to explain the medicines and that was it. Very fast and easy.",
-      author: "Pat J.",
-      location: "From Texas",
+      text: "I booked a same-day online consultation in minutes. The doctor reviewed my history, explained my treatment clearly, and sent my prescription immediately.",
+      author: "Ayesha K.",
+      location: "Lahore",
       bgColor: "bg-chart-1/10"
     },
     {
       rating: 5,
-      text: "The doctor made me feel comfortable right away, very easy to ask about concerns I might have had and great feedback from my doctors.",
-      author: "Patrice P.",
-      location: "From New York",
+      text: "The follow-up flow is excellent. I can revisit recommendations, track my appointments, and stay connected with my doctor without extra hassle.",
+      author: "Hamza R.",
+      location: "Karachi",
       bgColor: "bg-chart-2/10"
     },
     {
       rating: 5,
-      text: "My doctor was very professional, thorough, and careful to ask me numerous relevant questions. She answered my questions not only in a detailed manner, but also in a way I could understand.",
-      author: "Betty M.",
-      location: "From Tennessee",
+      text: "As a working parent, CareBridge Health saves me time. The consultation quality is great, and I no longer wait in long clinic queues.",
+      author: "Sana M.",
+      location: "Islamabad",
       bgColor: "bg-chart-4/10"
     },
     {
       rating: 5,
-      text: "It was quick & easy to book the appointment. I was able to get a PC appointment the next morning... within 12 hours! I connected and got my ongoing meds refilled. It was so nice for me living in a rural community.",
-      author: "Katherine M.",
-      location: "From California",
+      text: "The doctor dashboard is simple and practical. I can manage appointments, update availability, and deliver care efficiently in one place.",
+      author: "Dr. Umar N.",
+      location: "Sialkot",
       bgColor: "bg-chart-5/10"
     }
   ];
@@ -120,37 +120,41 @@ export const specializations = [
 
     export const faqs = [
     {
-      question: "How much does a doctor visit with SmartConsult+ cost?",
-      answer: "With insurance, you pay your copay based on your plan. We accept most plans, including Medicare. Without insurance, online doctor visits are $129. You can become a SmartConsult+ member and pay $44/visit. Membership is $55 for three months and $180 for a yearly membership."
+      question: "How do online doctor consultations work on CareBridge Health?",
+      answer: "Choose a doctor, select an available time slot, and join your consultation securely through video or voice. After the session, you can access your notes, prescription, and follow-up details from your dashboard."
     },
     {
-      question: "Do you accept health insurance?",
-      answer: "Yes, we accept most major health insurance plans including Medicare, BlueCross BlueShield, Aetna, United Healthcare, Cigna, Humana, and many others. We also accept FSA and HSA payments."
+      question: "Can I book a doctor appointment without visiting a clinic?",
+      answer: "Yes. CareBridge Health is designed for remote care, so you can consult licensed doctors from home using your phone or laptop."
     },
     {
-      question: "What conditions can SmartConsult+ doctors treat?",
-      answer: "Our doctors can treat a wide range of conditions including cold and flu symptoms, allergies, skin conditions, mental health concerns, chronic condition management, and much more through virtual consultations."
+      question: "What medical conditions can be treated online?",
+      answer: "Doctors on CareBridge Health handle common primary care concerns, chronic condition follow-ups, preventive care, mental wellness support, and specialist guidance depending on your needs."
     },
     {
-      question: "How quickly can I see a doctor?",
-      answer: "Many of our doctors are available for same-day appointments, and some offer immediate consultations. You can book appointments that fit your schedule, often within hours of your request."
+      question: "How quickly can I get an appointment?",
+      answer: "Many doctors offer same-day availability. You can book based on real-time slots and choose a time that fits your schedule."
     }
   ];
 
   export const trustLogos = [
-    "Business Insider", "CBS News", "CNBC", "Forbes", "Fortune", "Fox Business",
-    "Healthline", "Inc.", "Men's Health", "TechCrunch", "The New York Times", "WSJ"
+    "Trusted by Patients",
+    "Verified Doctors",
+    "Secure Video Consultations",
+    "Digital Prescriptions",
+    "Real-Time Appointment Tracking",
+    "24/7 Platform Access",
   ];
 
 
   export const contactInfo = [
   {
     icon: Phone,
-    text: "1-888-MEDICARE (1-888-633-4227)",
+    text: "+92 300 1234567",
   },
   {
     icon: Mail,
-    text: "support@medicare-plus.com",
+    text: "support@carebridgehealth.com",
   },
   {
     icon: MapPin,
@@ -164,7 +168,7 @@ export const specializations = [
       title: "Company",
       links: [
         { text: "About Us", href: "/about" },
-        { text: "Support Center", href: "/support" },
+        { text: "Support", href: "/support" },
         { text: "Contact Us", href: "/contact" }
       ]
     },
@@ -172,13 +176,13 @@ export const specializations = [
       title: "For Healthcare",
       links: [
         { text: "Join as Doctor", href: "/signup/doctor" },
-        { text: "Doctor Resources", href: "/doctor-resources" },
+        { text: "Doctor Login", href: "/login/doctor" },
       ]
     },
     {
       title: "For Patients",
       links: [
-        { text: "Find Doctors", href: "/doctors" },
+        { text: "Find Doctors", href: "/doctor-list" },
         { text: "Book Appointment", href: "/signup/patient" },
       ]
     },

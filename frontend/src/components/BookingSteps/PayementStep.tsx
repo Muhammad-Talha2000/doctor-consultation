@@ -116,9 +116,11 @@ const PayementStep = ({
         payload
       );
 
-      console.log(res)
-
-      window.location.href = res.url;
+      const checkoutUrl = res?.data?.url;
+      if (!checkoutUrl) {
+        throw new Error("Checkout session URL not returned by server");
+      }
+      window.location.href = checkoutUrl;
 
     
     } catch (error: any) {
@@ -205,7 +207,7 @@ const PayementStep = ({
                 Processing Payment...
               </h4>
               <p className="text-gray-600 mb-4">
-                Please complete the paymnet in the Razorpay window
+                Please complete the payment in the Stripe window
               </p>
               <Progress value={50} className="w-full" />
             </motion.div>

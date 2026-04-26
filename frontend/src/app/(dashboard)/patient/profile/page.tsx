@@ -2,8 +2,8 @@ import ProfilePage from "@/components/ProfilePage/ProfilePage";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Patient Profile | SmartConsult+",
-  description: "View and manage your doctor profile in SmartConsult+ platform.",
+  title: "Patient Profile | CareBridge Health",
+  description: "View and manage your patient profile in CareBridge Health platform.",
 };
 
 export default function Page() {

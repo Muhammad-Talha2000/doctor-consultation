@@ -16,13 +16,12 @@ const Footer = () => {
                   <Stethoscope className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-3xl font-bold bg-gradient-to-br from-white to-blue-100  bg-clip-text text-transparent">
-                  SmartConsult+
+                  CareBridge Health
                 </div>
               </div>
 
               <p className="text-blue-100 mb-6 text-lg leading-relaxed">
-                Your trusted healthcare partner providing quality medical
-                consultations with certified doctors online, anytime, anywhere.
+                A modern telehealth platform connecting patients with verified doctors for secure consultations, prescriptions, and follow-up care.
               </p>
 
               <div className="space-y-3 mb-6">
@@ -81,7 +80,7 @@ const Footer = () => {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="px-4 py-2 rpounded-lg bg-blue-800/50 border border-blue-600 text-white placeholder:blue-300  focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent min-w-[280px]"
+                className="min-w-[280px] rounded-lg border border-blue-600 bg-blue-800/50 px-4 py-2 text-white placeholder:text-blue-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-400"
               />
               <Button className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg whitespace-nowrap">
                 Subscribe
@@ -95,11 +94,11 @@ const Footer = () => {
         <div className="py-6 border-t border-blue-700/50">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-blue-200 text-sm">
-              <p>&copy; 2025 SmartConsult+, Inc. All rights resetved</p>
+              <p>&copy; 2026 CareBridge Health, Inc. All rights reserved.</p>
             </div>
 
             <div className="flex items-center space-x-4">
-              <span className="text-blue-200 text-sm">Follow use:</span>
+              <span className="text-blue-200 text-sm">Follow us:</span>
               <div className="flex space-x-3">
                 {socials.map(({ name, icon: Icon, url }) => (
                   <a
@@ -108,7 +107,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-8 h-8 bg-blue-700/50 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors duration-200"
-                    aria-label={`Follow use on ${name}`}
+                    aria-label={`Follow us on ${name}`}
                   >
                     <Icon className="w-4 h-4 text-white" />
                   </a>

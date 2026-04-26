@@ -5,6 +5,7 @@ import Header from "@/components/landing/Header";
 import LandingHero from "@/components/landing/LandingHero";
 import TestimonialsSection from "@/components/landing/TestimonialsSection";
 import { userAuthStore } from "@/store/authStore";
+import Script from "next/script";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -24,6 +25,25 @@ export default function Home() {
 
   return (
      <div className="min-h-screen bg-white">
+      <Script
+        id="home-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "MedicalWebPage",
+            name: "CareBridge Health Online Doctor Consultation",
+            description:
+              "Book online consultations with certified doctors, receive digital prescriptions, and manage follow-up care.",
+            url: "https://carebridgehealth.com",
+            provider: {
+              "@type": "Organization",
+              name: "CareBridge Health",
+              url: "https://carebridgehealth.com",
+            },
+          }),
+        }}
+      />
       <Header showDashboardNav={false}/>
       <main className="pt-16">
          <LandingHero/>

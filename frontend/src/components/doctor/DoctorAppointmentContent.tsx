@@ -223,6 +223,7 @@ const DoctorAppointmentContent = () => {
               <div className="flex items-center space-x-1">
                 {[...Array(5)].map((_,i) => (
                   <Star
+                   key={`rating-star-${appointment._id}-${i}`}
                    className="w-4 h-4 fill-yellow-400 text-yellow-400"
                   />
                 ))}

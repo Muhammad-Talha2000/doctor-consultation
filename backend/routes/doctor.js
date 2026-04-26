@@ -268,6 +268,99 @@ router.get(
 
       const responseTime = formatResponseTime(averageResponseTimeMs);
 
+      // Weekly trends (last 7 days, including today)
+      const weekStart = new Date(startOfDay);
+      weekStart.setDate(weekStart.getDate() - 6);
+
+      const weeklyAppointmentsRaw = await Appointment.find({
+        doctorId,
+        slotStartIso: { $gte: weekStart.toISOString(), $lte: endOfDay.toISOString() },
+      }).lean();
+
+      const dayKeys = [...Array(7)].map((_, index) => {
+        const day = new Date(weekStart);
+        day.setDate(weekStart.getDate() + index);
+        return day.toISOString().split("T")[0];
+      });
+
+      const dailyTrendMap = dayKeys.reduce((acc, key) => {
+        acc[key] = {
+          date: key,
+          label: new Date(key).toLocaleDateString("en-US", { weekday: "short" }),
+          appointments: 0,
+          revenue: 0,
+        };
+        return acc;
+      }, {});
+
+      weeklyAppointmentsRaw.forEach((appointment) => {
+        const key = new Date(appointment.slotStartIso).toISOString().split("T")[0];
+        if (!dailyTrendMap[key]) return;
+        dailyTrendMap[key].appointments += 1;
+        if (appointment.status === "Completed") {
+          dailyTrendMap[key].revenue +=
+            appointment.consultationFees || appointment.fees || doctor.fees || 0;
+        }
+      });
+
+      const weeklyTrend = Object.values(dailyTrendMap);
+
+      // Cancellation and no-show metrics
+      const cancelledCount = await Appointment.countDocuments({
+        doctorId,
+        status: "Cancelled",
+      });
+
+      const noShowCount = await Appointment.countDocuments({
+        doctorId,
+        status: "Scheduled",
+        slotStartIso: { $lt: now.toISOString() },
+      });
+
+      const cancellationRate =
+        totalAppointmentCount + cancelledCount > 0
+          ? Math.round((cancelledCount / (totalAppointmentCount + cancelledCount)) * 100)
+          : 0;
+
+      const noShowRate =
+        totalAppointmentCount + cancelledCount > 0
+          ? Math.round((noShowCount / (totalAppointmentCount + cancelledCount)) * 100)
+          : 0;
+
+      // Consultation type split
+      const typeCountsRaw = await Appointment.aggregate([
+        { $match: { doctorId: doctor._id, status: { $ne: "Cancelled" } } },
+        { $group: { _id: "$consultationType", count: { $sum: 1 } } },
+      ]);
+
+      const consultationTypeSplit = {
+        video: 0,
+        voice: 0,
+      };
+
+      typeCountsRaw.forEach((entry) => {
+        if (entry._id === "Video Consultation") consultationTypeSplit.video = entry.count;
+        if (entry._id === "Voice Call") consultationTypeSplit.voice = entry.count;
+      });
+
+      // Recent ratings trend (last 10 completed rated appointments)
+      const recentRatingsRaw = await Appointment.find({
+        doctorId,
+        status: "Completed",
+        rating: { $exists: true, $ne: null },
+      })
+        .sort({ updatedAt: -1 })
+        .limit(10)
+        .select("rating updatedAt")
+        .lean();
+
+      const recentRatings = recentRatingsRaw
+        .map((item) => ({
+          rating: item.rating,
+          date: new Date(item.updatedAt).toISOString().split("T")[0],
+        }))
+        .reverse();
+
       const dashboardData = {
         user: {
           name: doctor.name,
@@ -289,6 +382,15 @@ router.get(
           patientSatisfaction: averageRating,
           completionRate: `${completionRate}%`,
           responseTime,
+        },
+        analytics: {
+          weeklyTrend,
+          noShowCount,
+          noShowRate: `${noShowRate}%`,
+          cancelledCount,
+          cancellationRate: `${cancellationRate}%`,
+          consultationTypeSplit,
+          recentRatings,
         },
       };
 
