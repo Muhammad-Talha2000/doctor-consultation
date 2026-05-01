@@ -237,9 +237,10 @@ const DoctorAppointmentContent = () => {
   );
 
   const EmptyState = ({ tab }: { tab: string }) => {
-
-
-    const state = emptyStates[tab as keyof typeof emptyStates];
+    const normalizedTab = tab === "past" ? "completed" : tab;
+    const state =
+      emptyStates[normalizedTab as keyof typeof emptyStates] ??
+      emptyStates.upcoming;
     const Icon = state.icon;
     return (
       <Card>

@@ -13,6 +13,10 @@ const response = require('./middleware/response');
 
 
 const app = express();
+const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
 
 //helmet is a security middleware for Express 
 //It helps protect your app by settings various HTTP headers
@@ -21,7 +25,7 @@ app.use(helmet());
 //morgan is an HTTP request logger middleware
 app.use(morgan('dev'))
 app.use(cors({
-    origin: (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean) || '*',
+    origin: allowedOrigins.length ? allowedOrigins : true,
     credentials:true
 }));
 app.use(bodyParser.json());

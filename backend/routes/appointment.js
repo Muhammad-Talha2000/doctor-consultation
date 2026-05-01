@@ -3,6 +3,7 @@ const Appointment = require("../modal/Appointment");
 const { authenticate, requireRole } = require("../middleware/auth");
 const { query, body } = require("express-validator");
 const validate = require("../middleware/validate");
+const { generateToken04 } = require("../utils/zegoToken");
 
 const router = express.Router();
 
@@ -190,6 +191,57 @@ router.post("/book", authenticate, requireRole("patient"), [
     }
   },
 ]);
+
+//Join
+router.get("/zego-token/:id", authenticate, async (req, res) => {
+  try {
+    const appointment = await Appointment.findById(req.params.id).populate(
+      "patientId doctorId",
+      "_id"
+    );
+
+    if (!appointment) {
+      return res.notFound("Appointment not found");
+    }
+
+    const userRole = req.auth.type;
+    const userId = String(req.auth.id);
+    const isDoctorOwner = String(appointment.doctorId?._id) === userId;
+    const isPatientOwner = String(appointment.patientId?._id) === userId;
+
+    if ((userRole === "doctor" && !isDoctorOwner) || (userRole === "patient" && !isPatientOwner)) {
+      return res.forbidden("Access denied");
+    }
+
+    const appId = Number(process.env.ZEGOCLOUD_APP_ID);
+    const serverSecret = process.env.ZEGOCLOUD_SERVER_SECRET;
+    if (!appId || !serverSecret) {
+      return res.serverError("ZEGOCLOUD credentials are not configured");
+    }
+
+    const payload = JSON.stringify({
+      room_id: appointment.zegoRoomId,
+      privilege: {
+        1: 1,
+        2: 1,
+      },
+      stream_id_list: null,
+    });
+
+    const token = generateToken04(appId, userId, serverSecret, 3600, payload);
+    res.ok(
+      {
+        token,
+        appId,
+        roomId: appointment.zegoRoomId,
+      },
+      "ZEGOCLOUD token generated"
+    );
+  } catch (error) {
+    console.error("ZEGOCLOUD token generation error", error);
+    res.serverError("Failed to generate ZEGOCLOUD token", [error.message]);
+  }
+});
 
 //Join
 router.get("/join/:id", authenticate, async (req, res) => {

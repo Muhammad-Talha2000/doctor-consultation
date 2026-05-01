@@ -10,7 +10,7 @@ const page = () => {
       const params = useParams();
       const router = useRouter();
       const appointmentId = params.appointmentId as string; 
-      const {currentAppointment,fetchAppointmentById,joinConsultation} = useAppointmentStore();
+      const {currentAppointment,fetchAppointmentById,joinConsultation,getConsultationToken} = useAppointmentStore();
       const {user} = userAuthStore();
       const [isNavigating,setIsNavigating] = useState(false);
       useEffect(() => {
@@ -60,6 +60,7 @@ const page = () => {
      currentUser={currentUserData}
      onCallEnd={handleCallEnd}
      joinConsultation={joinConsultation}
+     getConsultationToken={getConsultationToken}
     />
   )
 }

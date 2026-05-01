@@ -116,7 +116,8 @@ const PayementStep = ({
         payload
       );
 
-      const checkoutUrl = res?.data?.url;
+      const checkoutUrl =
+        res?.data?.url || (res as unknown as { url?: string })?.url;
       if (!checkoutUrl) {
         throw new Error("Checkout session URL not returned by server");
       }

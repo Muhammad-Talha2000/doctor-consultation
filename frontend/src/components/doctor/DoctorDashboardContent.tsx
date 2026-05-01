@@ -382,16 +382,16 @@ const DoctorDashboardContent: React.FC = () => {
 
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
             <Card className="lg:col-span-2 hover:shadow-lg transition-shadow">
-              <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="flex items-center space-x-2">
+              <CardHeader className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <CardTitle className="flex w-full flex-wrap items-center gap-2 sm:w-auto">
                   <Calendar className="w-5 h-5 text-blue-500" />
                   <span>Today's Schedule</span>
-                  <Badge variant="secondary" className="ml-2">
+                  <Badge variant="secondary">
                     {todayAppointments.length} appointments
                   </Badge>
                 </CardTitle>
                 <Link href="/doctor/appointments">
-                  <Button variant="ghost" size="sm">
+                  <Button variant="ghost" size="sm" className="px-2 sm:px-3">
                     View All <ChevronRight className="w-4 h-4 ml-1" />
                   </Button>
                 </Link>

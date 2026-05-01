@@ -61,6 +61,7 @@ interface AppointmentState {
   fetchAppointmentById: (appointmentId: string) => Promise<Appointment | null>;
   bookAppointment: (data: BookingData) => Promise<any>;
   joinConsultation: (appointmentId: string) => Promise<any>;
+  getConsultationToken: (appointmentId: string) => Promise<any>;
   endConsultation: (
     appointmentId: string,
     prescription?: string,
@@ -181,6 +182,17 @@ export const useAppointmentStore = create<AppointmentState>((set, get) => ({
             : state.currentAppointment,
       }));
 
+      return response.data;
+    } catch (error: any) {
+      set({ error: error.message });
+    } finally {
+      set({ loading: false, error: null });
+    }
+  },
+  getConsultationToken: async (appointmentId) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await getWithAuth(`/appointment/zego-token/${appointmentId}`);
       return response.data;
     } catch (error: any) {
       set({ error: error.message });

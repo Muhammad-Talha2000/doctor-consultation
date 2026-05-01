@@ -22,21 +22,21 @@ router.get(
 
 //update patient profile
 router.put("/onboarding/update", authenticate, requireRole("patient"), [
-  body("name").optional().notEmpty(),
-  body("phone").optional().isString(),
+  body("name").optional({ checkFalsy: true }).notEmpty(),
+  body("phone").optional({ checkFalsy: true }).isString(),
   body("dob").optional().isISO8601(),
-  body("gender").optional().isIn(['male', 'female', 'other']),
-  body("bloodGroup").optional().isString(),
+  body("gender").optional({ checkFalsy: true }).isIn(['male', 'female', 'other']),
+  body("bloodGroup").optional({ checkFalsy: true }).isString(),
 
   body("emergencyContact").optional().isObject(),
-  body("emergencyContact.name").optional().isString().notEmpty(),
-  body("emergencyContact.phone").optional().isString().notEmpty(),
-  body("emergencyContact.relationship").optional().isString().notEmpty(),
+  body("emergencyContact.name").optional({ checkFalsy: true }).isString().notEmpty(),
+  body("emergencyContact.phone").optional({ checkFalsy: true }).isString().notEmpty(),
+  body("emergencyContact.relationship").optional({ checkFalsy: true }).isString().notEmpty(),
 
   body("medicalHistory").optional().isObject(),
-  body("medicalHistory.allergies").optional().isString().notEmpty(),
-  body("medicalHistory.currentMedications").optional().isString().notEmpty(),
-  body("medicalHistory.chronicConditions").optional().isString().notEmpty(),
+  body("medicalHistory.allergies").optional({ checkFalsy: true }).isString().notEmpty(),
+  body("medicalHistory.currentMedications").optional({ checkFalsy: true }).isString().notEmpty(),
+  body("medicalHistory.chronicConditions").optional({ checkFalsy: true }).isString().notEmpty(),
 ],validate ,
    async(req,res) => {
     try {

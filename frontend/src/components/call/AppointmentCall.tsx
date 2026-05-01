@@ -11,12 +11,14 @@ interface AppointmentCallInterface {
   };
   onCallEnd: () => void;
   joinConsultation: (appointmentId: string) => Promise<void>;
+  getConsultationToken: (appointmentId: string) => Promise<any>;
 }
 const AppointmentCall = ({
   appointment,
   currentUser,
   onCallEnd,
   joinConsultation,
+  getConsultationToken,
 }: AppointmentCallInterface) => {
   const zpRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -28,6 +30,13 @@ const AppointmentCall = ({
       await joinConsultation(appointmentId);
     },
     [joinConsultation]
+  );
+
+  const memoizedGetConsultationToken = useCallback(
+    async (appointmentId: string) => {
+      return getConsultationToken(appointmentId);
+    },
+    [getConsultationToken]
   );
 
   
@@ -48,32 +57,17 @@ const AppointmentCall = ({
 
       try {
         initializationRef.current = true;
-        const appId = process.env.NEXT_PUBLIC_ZEGOCLOUD_APP_ID;
-        const serverSecret = process.env.NEXT_PUBLIC_ZEGOCLOUD_SERVER_SECRET;
-
-        if (!appId || !serverSecret) {
-          throw new Error("Zegocloud credentials not configured");
-        }
-
-        const numericAppId = Number.parseInt(appId);
-
-        if (isNaN(numericAppId)) {
-          throw new Error("Invalid Zegocloud App Id");
-        }
-
         try {
           await memoizedJoinConsultation(appointment?._id);
         } catch (error) {
           console.warn("failed to update appointment", error);
         }
 
-        const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
-          numericAppId,
-          serverSecret,
-          appointment.zegoRoomId,
-          currentUser.id,
-          currentUser.name
-        );
+        const tokenResponse = await memoizedGetConsultationToken(appointment?._id);
+        const kitToken = tokenResponse?.token;
+        if (!kitToken) {
+          throw new Error("Consultation token not received from server");
+        }
 
         const zp = ZegoUIKitPrebuilt.create(kitToken);
         zpRef.current = zp;
@@ -160,6 +154,7 @@ const AppointmentCall = ({
       appointment.consultationType,
       currentUser.id,
       currentUser.name,
+      memoizedGetConsultationToken,
       memoizedJoinConsultation,
       onCallEnd,
     ]

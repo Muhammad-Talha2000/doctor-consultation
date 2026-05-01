@@ -144,7 +144,7 @@ router.get(
     } catch (error) {
       res.redirect(
         `${process.env.FRONTEND_URL}/auth/error?message=${encodeURIComponent(
-          e.message
+          error.message
         )}`
       );
     }

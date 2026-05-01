@@ -7,6 +7,8 @@ const Appointment = require("../modal/Appointment");
 const crypto = require("crypto");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const router = express.Router();
+const STRIPE_CURRENCY = "usd";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
 const razorPay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -167,7 +169,7 @@ router.post("/create-checkout-session", async (req, res) => {
       line_items: [
         {
           price_data: {
-            currency: "pkr",
+            currency: STRIPE_CURRENCY,
             product_data: {
               name: `Consultation with ${doctor}`,
               description: `Type: ${consultationType} | Date: ${selectedDate} | Duration: ${duration}`,
@@ -178,7 +180,7 @@ router.post("/create-checkout-session", async (req, res) => {
         },
         {
           price_data: {
-            currency: "pkr",
+            currency: STRIPE_CURRENCY,
             product_data: {
               name: "Platform Fee",
               description: "Service and processing charges",
@@ -194,13 +196,13 @@ router.post("/create-checkout-session", async (req, res) => {
         doctor_name: doctor,
         appointment_date: selectedDate,
       },
-      success_url: `http://localhost:3000/patient/dashboard`,
-      cancel_url: `http://localhost:3000/patient/dashboard`,
+      success_url: `${FRONTEND_URL}/patient/dashboard`,
+      cancel_url: `${FRONTEND_URL}/patient/dashboard`,
     });
 
-    res.json({ url: session.url });
+    res.ok({ url: session.url }, "Checkout session created successfully");
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.serverError("Failed to create checkout session", [error.message]);
   }
 });
 
